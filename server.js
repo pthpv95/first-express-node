@@ -2,6 +2,7 @@ const express = require("express");
 const hbs = require("hbs");
 const fs = require("fs");
 
+const port = process.env.PORT || 3000;
 var app = express();
 
 hbs.registerPartials(__dirname + "/views/partials");
@@ -13,8 +14,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res) => {
-  res.render("maintenance.hbs");
+app.use((req, res, next) => {
+  // res.render("maintenance.hbs");
+  next();
 });
 
 app.use(express.static(__dirname + "/public"));
@@ -30,8 +32,6 @@ app.get("/about", (req, res) => {
     author: "Lee"
   });
 });
-app.listen(3000, () => {
-  // console.log("server is up and running");
+app.listen(port, () => {
+  console.log("Node server is up and running on " + port);
 });
-
-console.log("Test push code with ssh keygen");
